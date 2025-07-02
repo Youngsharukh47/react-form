@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'; // required for phone input styling
-import TablePage from "./pages/table"; // make sure table.js exists in pages/
+import TablePage from "./pages/table"; //to the table page
 import './index.css';
 
 
