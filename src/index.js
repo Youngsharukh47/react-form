@@ -1,51 +1,51 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css'; // required for phone input styling
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css"; // required for phone input styling
 import TablePage from "./pages/table"; //to the table page
-import './index.css';
-
+import "./index.css";
 
 function MyForm() {
   const [inputs, setInputs] = useState({
-    firstName: '',
-    lastName: '',
-    dob: '',
-    age: '',
-    email: '',
-    phone: ''
+    firstName: "",
+    lastName: "",
+    dob: "",
+    age: "",
+    email: "",
+    phone: "",
   });
 
   const [submittedData, setSubmittedData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputs(prev => ({ ...prev, [name]: value }));
+    setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
   const handlePhoneChange = (value) => {
-    setInputs(prev => ({ ...prev, phone: value }));
+    setInputs((prev) => ({ ...prev, phone: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmittedData(prev => [...prev, inputs]);
+    setSubmittedData((prev) => [...prev, inputs]);
     setInputs({
-      firstName: '',
-      lastName: '',
-      dob: '',
-      age: '',
-      email: '',
-      phone: ''
+      firstName: "",
+      lastName: "",
+      dob: "",
+      age: "",
+      email: "",
+      phone: "",
     });
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h2>Registration Form</h2>
       <form onSubmit={handleSubmit}>
-        <label>First Name:
+        <label>
+          First Name:
           <input
             type="text"
             name="firstName"
@@ -53,9 +53,11 @@ function MyForm() {
             onChange={handleChange}
             required
           />
-        </label><br />
+        </label>
+        <br />
 
-        <label>Last Name:
+        <label>
+          Last Name:
           <input
             type="text"
             name="lastName"
@@ -63,9 +65,11 @@ function MyForm() {
             onChange={handleChange}
             required
           />
-        </label><br />
+        </label>
+        <br />
 
-        <label>Date of Birth:
+        <label>
+          Date of Birth:
           <input
             type="date"
             name="dob"
@@ -73,9 +77,11 @@ function MyForm() {
             onChange={handleChange}
             required
           />
-        </label><br />
+        </label>
+        <br />
 
-        <label>Age:
+        <label>
+          Age:
           <input
             type="number"
             name="age"
@@ -83,9 +89,11 @@ function MyForm() {
             onChange={handleChange}
             required
           />
-        </label><br />
+        </label>
+        <br />
 
-        <label>Email Address:
+        <label>
+          Email Address:
           <input
             type="email"
             name="email"
@@ -93,19 +101,21 @@ function MyForm() {
             onChange={handleChange}
             required
           />
-        </label><br />
+        </label>
+        <br />
 
-        <label>Phone Number:
+        <label>
+          Phone Number:
           <PhoneInput
-            country={'ke'}
-            onlyCountries={['ke', 'ug', 'tz', 'rw', 'bi', 'ss', 'et', 'so']}
+            country={"ke"}
+            onlyCountries={["ke", "ug", "tz", "rw", "bi", "ss", "et", "so"]}
             value={inputs.phone}
             onChange={handlePhoneChange}
-            dropdownStyle={{ maxHeight: '150px', overflow: 'auto' }}
+            dropdownStyle={{ maxHeight: "150px", overflow: "auto" }}
             required
           />
-
-        </label><br />
+        </label>
+        <br />
 
         <button type="submit">Submit</button>
       </form>
@@ -116,7 +126,11 @@ function MyForm() {
       {submittedData.length === 0 ? (
         <p>No entries yet.</p>
       ) : (
-        <table border="1" cellPadding="10" style={{ borderCollapse: 'collapse', width: '100%' }}>
+        <table
+          border="1"
+          cellPadding="10"
+          style={{ borderCollapse: "collapse", width: "100%" }}
+        >
           <thead>
             <tr>
               <th>First Name</th>
@@ -159,5 +173,5 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
