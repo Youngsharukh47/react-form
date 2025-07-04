@@ -1,9 +1,10 @@
+// src/index.js
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css"; // required for phone input styling
-import TablePage from "./pages/table"; //to the table page
+import "react-phone-input-2/lib/style.css";
+import TablePage from "./pages/table";
 import "./index.css";
 
 function MyForm() {
@@ -27,17 +28,46 @@ function MyForm() {
     setInputs((prev) => ({ ...prev, phone: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmittedData((prev) => [...prev, inputs]);
-    setInputs({
-      firstName: "",
-      lastName: "",
-      dob: "",
-      age: "",
-      email: "",
-      phone: "",
-    });
+
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      const result = await response.json();
+      alert("Form submitted successfully ✅");
+
+      const mappedResult = {
+      firstName: result.first_name,
+      lastName: result.last_name,
+      dob: result.dob,
+      age: result.age,
+      email: result.email,
+      phone: result.phone,
+    };
+
+      setSubmittedData((prev) => [...prev, mappedResult]);
+      setInputs({
+        firstName: "",
+        lastName: "",
+        dob: "",
+        age: "",
+        email: "",
+        phone: "",
+      });
+    } catch (error) {
+      alert("Submission failed: " + error.message);
+    }
   };
 
   return (
@@ -146,7 +176,7 @@ function MyForm() {
               <tr key={index}>
                 <td>{entry.firstName}</td>
                 <td>{entry.lastName}</td>
-                <td>{entry.dob}</td>
+                <td>{new Date(entry.dob).toISOString().split("T")[0]}</td> {/* ✅ Fixes DOB display */}
                 <td>{entry.age}</td>
                 <td>{entry.email}</td>
                 <td>{entry.phone}</td>
